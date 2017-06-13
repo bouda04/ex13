@@ -21,7 +21,7 @@ import android.widget.TextView;
 
 public class MyAdapter extends ResourceCursorAdapter {
 	private final static int MAX_ITEMS=16;
-	public final static int MAX_NUMBERS = 100;
+	public final static int MAX_NUMBERS = 99;
 	public final static int SORT_BY_NUMS=1;
 	public final static int SORT_BY_COLORS=2;
 	public final static int SHUFFLE=3;
@@ -40,11 +40,13 @@ public class MyAdapter extends ResourceCursorAdapter {
 	@Override
 	public void bindView(View view, final Context context, Cursor cursor) {
 		TextView tv = (TextView) view.findViewById(R.id.tvNumber);
+
 		int number = cursor.getInt(cursor.getColumnIndex(ItemEntry.KEY_NUMBER));
 		view.setTag(cursor.getInt(cursor.getColumnIndex(ItemEntry.KEY_ID)));
 		int color = cursor.getInt(cursor.getColumnIndex(ItemEntry.KEY_COLOR));
-		GradientDrawable  background = (GradientDrawable) view.getBackground();
-		background.setColor(color);
+		((GradientDrawable) view.getBackground()).setColor(color);
+
+
 		if (number != -1){
 			tv.setText(Integer.toString(number));
 			view.setOnClickListener(null);
@@ -92,6 +94,7 @@ public class MyAdapter extends ResourceCursorAdapter {
 	}
 
 	public HashSet<Integer>  getExistingNumbers(){
+
 		return this.dbh.getExistingNumbers();
 	}
 	
